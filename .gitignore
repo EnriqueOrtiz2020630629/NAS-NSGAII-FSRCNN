@@ -1,0 +1,6 @@
+*.h5
+/models
+/plots
+/Set5
+/T91
+/__pycache__
