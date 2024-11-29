@@ -38,7 +38,7 @@ class NASProblem(Problem):
         for solution in X:
             d, s, m = map(int, solution)
             print(d,s,m)
-            model = train_model(d=int(d),s=int(s),m=int(m), num_epochs=2, train_file="T91atacado.h5", eval_file="Set5_limpio.h5", outputs_dir="./models")
+            model = train_model(d=int(d),s=int(s),m=int(m), train_file="T91atacado.h5", eval_file="Set5_limpio.h5", outputs_dir="./models")
             
             psnr_limpio = evaluate_model(model, "Set5_limpio.h5")
             psnr_atacado = evaluate_model(model, "Set5_atacado.h5")
