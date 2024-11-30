@@ -9,7 +9,6 @@ from torch import nn
 from models import FSRCNN
 import torch.backends.cudnn as cudnn
 
-
 def i_fgsm_ataque(modelo, X0, alpha, T, device):
     X = X0.clone().detach().requires_grad_(True).to(device)
     

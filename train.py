@@ -9,7 +9,7 @@ from tqdm import tqdm
 from models import FSRCNN
 from utils import TrainDataset, EvalDataset, AverageMeter, calc_psnr, calc_patch_size
         
-def train_model(d,s,m,outputs_dir,train_file, eval_file,scale=4,lr=1e-3,num_workers=8, batch_size=16,num_epochs=20, seed=123,):
+def train_model(d,s,m,outputs_dir,train_file, eval_file,scale=4,lr=1e-3,num_workers=0, batch_size=16,num_epochs=20, seed=123,):
     if not os.path.exists(outputs_dir):
         os.makedirs(outputs_dir)
 
@@ -126,15 +126,6 @@ def evaluate_model(model, eval_file):
             epoch_psnr.update(calc_psnr(preds, labels), len(inputs))
 
     return  epoch_psnr.avg.item()
-
-
-if __name__ == "__main__":
-    cudnn.benchmark = True
-    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    model = train_model(d=56, s=12, m=4, num_epochs=2, train_file="Set5train.h5", eval_file="Set5_limpio.h5", outputs_dir="./models")
-
-    print(evaluate_model(model, "Set5_atacado.h5"))
-
 
 
 

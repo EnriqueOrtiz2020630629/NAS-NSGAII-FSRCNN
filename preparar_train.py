@@ -74,7 +74,6 @@ def train(args):
             hr = convert_rgb_to_y(hr)
             lr = convert_rgb_to_y(lr)
             
-
             if args.attack:
                 lr /= 255.
                 lr = torch.from_numpy(lr).to(device)
