@@ -128,4 +128,5 @@ def evaluate_model(model, eval_file):
     return  epoch_psnr.avg.item()
 
 
-
+if __name__ == "__main__":
+    model = FSRCNN(4,37,18,4)

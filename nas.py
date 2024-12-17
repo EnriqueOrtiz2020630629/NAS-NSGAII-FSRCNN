@@ -100,7 +100,6 @@ algorithm = NSGA2(
     save_history=True
 )
 
-
 termination = get_termination("n_gen", 20)
 
 problem = NASProblem()

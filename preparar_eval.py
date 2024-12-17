@@ -44,9 +44,22 @@ def eval(args):
         model.eval()
     
     h5_file = h5py.File(args.output_path, 'w')
+    cudnn.benchmark = True
+        device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+        if torch.cuda.is_available():
+            print("CUDA")
+        else:
+            print("CPU")
+        
+        model = FSRCNN(scale_factor=args.scale).to(device)
+        state_dict = model.state_dict()
+        for n, p in torch.load(args.weights_file, map_location=lambda storage, loc: storage).items():
+            if n in state_dict:
+                state_dict[n].copy_(p)
 
-    lr_group = h5_file.create_group('lr')
-    hr_group = h5_file.create_group('hr')
+        model.eval()
+        lr_group = h5_file.create_group('lr')
+        hr_group = h5_file.create_group('hr')
 
     for i, image_path in enumerate(sorted(glob.glob('{}/*'.format(args.images_dir)))):
         print(f"Procesando {image_path}")
